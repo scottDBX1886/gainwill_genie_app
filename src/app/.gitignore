@@ -17,7 +17,7 @@ dist
 # Frontend
 node_modules/
 .tanstack
-# gainwell_genie_app/__dist__/  # uncomment to ignore; leave included so bundle deploys UI
+gainwell_genie_app/__dist__/
 
 # Env
 .env
