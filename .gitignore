@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[oc]
+*.egg-info
+.venv/
+*.egg
+
+# Env
+.env
+.env.local
+.env.*
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Databricks bundle (local state)
+.databricks/
+
+# Misc
+*.log

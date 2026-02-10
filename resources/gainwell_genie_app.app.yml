@@ -1,0 +1,13 @@
+# Gainwell Genie Data App - Databricks App resource
+# Source path is relative to resources/ (use ../ to reach bundle root).
+
+resources:
+  apps:
+    gainwell_genie_app:
+      name: gainwell-genie-app-${bundle.target}
+      description: "Data app with Genie chat: ask questions, view data, download and visualize."
+      source_code_path: ../src/app
+      # User authorization scopes so the app can call Genie and run SQL on the user's behalf
+      user_api_scopes:
+        - dashboards.genie
+        - sql

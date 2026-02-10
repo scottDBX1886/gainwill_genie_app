@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+
+# Version (generated at build; __init__.py has fallback if missing)
+gainwell_genie_app/_version.py
+
+# Build
+dist
+.apx/
+
+# Frontend
+node_modules/
+.tanstack
+# gainwell_genie_app/__dist__/  # uncomment to ignore; leave included so bundle deploys UI
+
+# Env
+.env
+.env.local
+.env.*
+
+# Misc
+.DS_Store
+.databricks
+
+# Legacy (pre-APX) – only exclude old top-level paths, not backend/
+ui/
+static/
+main.py
+app.yaml

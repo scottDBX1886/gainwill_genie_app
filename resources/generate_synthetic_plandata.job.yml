@@ -1,0 +1,20 @@
+# Job: run synthetic data generation for plandata tables on serverless compute.
+# Script is deployed with the bundle. Catalog/schema use script defaults (or set via job run parameters if script is updated to read them).
+
+resources:
+  jobs:
+    generate_synthetic_plandata:
+      name: "[${bundle.target}] Generate synthetic plandata"
+      description: "Generate synthetic data for plandata tables (carrier, benefitplan, member, provider, enrollkeys, claim, referral). Runs on serverless."
+      max_concurrent_runs: 1
+      tasks:
+        - task_key: generate
+          spark_python_task:
+            python_file: ../scripts/generate_synthetic_plandata.py
+          environment_key: plandata_gen
+      environments:
+        - environment_key: plandata_gen
+          spec:
+            environment_version: "4"
+            dependencies:
+              - faker

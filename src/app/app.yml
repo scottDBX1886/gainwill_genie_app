@@ -1,0 +1,16 @@
+# Gainwell Genie Data App - Databricks Apps config (APX).
+# Env vars overridden per target via bundle deploy (see repo root databricks.yml).
+# PORT: use platform-provided PORT when set to avoid "address already in use".
+
+command: ["sh", "-c", "exec uvicorn gainwell_genie_app.backend.app:app --host 0.0.0.0 --port ${PORT:-8080}"]
+
+env:
+  - name: DATABRICKS_CATALOG
+    value: "dc_dev_replication"
+  - name: DATABRICKS_SCHEMA
+    value: "plandata_parallel_replica"
+  - name: DATABRICKS_WAREHOUSE_ID
+    value: "a94a22f8652d85c1"
+  - name: GENIE_SPACE_ID
+    value: "01f10621580415e4a5c330f0cdd74010"
+  # Do not set PORT here; let the Apps platform assign it to avoid port conflicts.
