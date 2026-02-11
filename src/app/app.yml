@@ -1,5 +1,5 @@
 # Gainwell Genie Data App - Databricks Apps config (APX).
-# Env vars overridden per target via bundle deploy (see repo root databricks.yml).
+# For clone-and-deploy: set these to match your databricks.yml variables (catalog, schema, warehouse_id, genie_space_id).
 # PORT: use platform-provided PORT when set to avoid "address already in use".
 
 command: ["sh", "-c", "exec uvicorn gainwell_genie_app.backend.app:app --host 0.0.0.0 --port ${PORT:-8080}"]

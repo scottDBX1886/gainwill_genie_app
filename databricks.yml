@@ -1,6 +1,7 @@
 # Gainwell Genie Data App - Asset Bundle
-# Parameterized for repo sharing and multi-environment deploy.
-# All SQL uses warehouse: dbdemos-shared-endpoint
+# Parameterized so anyone can clone the repo and deploy with their own catalog, schema, warehouse, and Genie space.
+# Override variables: -v catalog=my_catalog -v schema=my_schema -v warehouse_id=... -v genie_space_id=...
+# Or set per-target in this file under targets.<name>.variables.
 
 bundle:
   name: gainwell-genie-app
@@ -11,16 +12,16 @@ include:
 variables:
   catalog:
     description: "Unity Catalog for plandata tables (source or synthetic)."
-    default: "dc_dev_replication"
+    default: "main"
   schema:
-    description: "Schema containing plandata tables (e.g. plandata_parallel_replica or plandata_demo)."
-    default: "plandata_parallel_replica"
+    description: "Schema containing plandata tables."
+    default: "default"
   warehouse_id:
-    description: "SQL warehouse ID for Genie and app (use dbdemos-shared-endpoint)."
-    default: "a94a22f8652d85c1"
+    description: "SQL warehouse ID for Genie and the app (required for chat)."
+    default: ""
   genie_space_id:
-    description: "Genie Space ID for NL-to-SQL (Gainwell Plan Data space)."
-    default: "01f10621580415e4a5c330f0cdd74010"
+    description: "Genie Space ID for NL-to-SQL chat (create a Genie space over your tables, then paste its ID here)."
+    default: ""
 
 targets:
   dev:

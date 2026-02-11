@@ -1,5 +1,5 @@
 # Job: run synthetic data generation for plandata tables on serverless compute.
-# Script is deployed with the bundle. Catalog/schema use script defaults (or set via job run parameters if script is updated to read them).
+# Script reads CATALOG and SCHEMA from env (defaults in script); set in Job UI or edit scripts/generate_synthetic_plandata.py.
 
 resources:
   jobs:
