@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from .._metadata import app_name, dist_dir
@@ -32,10 +33,25 @@ app.add_middleware(
 )
 app.include_router(api)
 
-if dist_dir.exists():
+# Serve UI: explicit root so "/" always returns HTML; then mount static assets
+_index_html = dist_dir / "index.html"
+if _index_html.exists():
+    @app.get("/", response_class=HTMLResponse, include_in_schema=False)
+    def serve_root():
+        return FileResponse(_index_html, media_type="text/html")
+
     ui = StaticFiles(directory=str(dist_dir), html=True)
     app.mount("/", ui)
 else:
-    logger.warning("UI dist_dir %s not found; run 'apx build' or 'apx frontend build' from app root", dist_dir)
+    logger.warning("UI dist_dir %s not found; run 'apx build' before deploy", dist_dir)
+
+    @app.get("/", response_class=HTMLResponse, include_in_schema=False)
+    def serve_root_fallback():
+        return HTMLResponse(
+            "<!DOCTYPE html><html><head><title>App</title></head><body>"
+            "<h1>UI not built</h1><p>Run <code>apx build</code> in <code>src/app</code> then redeploy.</p>"
+            "</body></html>",
+            status_code=503,
+        )
 
 add_not_found_handler(app)
